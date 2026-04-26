@@ -1,37 +1,84 @@
-# BetterPrompt 🎯
+# BetterPrompt
 
-Welcome to **BetterPrompt**! This is an educational, web-based tool designed to help users evaluate, score, and improve their Large Language Model (LLM) prompts. 
+BetterPrompt is an educational prompt-review tool. Its purpose is to evaluate prompts against prompt-engineering best practices, explain what is working and what is weak, and generate a stronger rewritten version.
 
-Whether you are a casual beginner or a mid-level technical practitioner, writing the perfect prompt can often feel like trial-and-error. BetterPrompt removes the guesswork by leveraging official prompting guidelines from top AI companies (like OpenAI, Anthropic, and Google) to provide actionable, model-specific recommendations.
+The project is still under construction. The current implementation focuses on the assessment pipeline, local model integration, document ingestion, and a presentation-ready feedback dashboard.
 
-## ✨ Features
+## Current product scope
 
-* **Prompt Scoring & Assessment:** Submit your prompt (via text or PDF upload) and receive an objective score based on clarity, context, and intent alignment.
-* **Hybrid Knowledge Base:** Our engine evaluates prompts against both *universal* best practices and *model-specific* guidelines (e.g., Claude's preference for XML tags vs. ChatGPT's use of Markdown).
-* **Actionable Feedback & Rewrites:** Get a clear "Pros & Cons" breakdown highlighting exactly what you did right, and instantly receive an optimized, ready-to-copy version of your prompt.
-* **🎓 Educational Learning Hub:** A dedicated section containing "Prompting 101" basics and model-specific cheat sheets so users can understand *why* their prompt received a certain score and how to improve.
-* **Educational Showcase:** A built-in presentation mode loaded with classic "bad prompt" examples to instantly demonstrate the value of prompt engineering.
+At this stage, BetterPrompt supports:
 
-## 🛠️ Under the Hood (Tech Stack)
+- assessment of a single prompt or a collection of prompts
+- user intent capture
+- model-provider-aware evaluation
+- upload and parsing of prompt files
+- scoring and feedback generation
+- rewritten prompt generation
 
-BetterPrompt isn't just a basic keyword scanner; it uses an **LLM-as-a-Judge** architecture to truly understand natural language intent.
-* **Frontend & Backend:** Built with **Next.js** and **Tailwind CSS** for a seamless, fast UI and secure server-side API routes.
-* **The Assessment Engine:** Powered by the **OpenAI API**. We use a technique called *Context Injection* to secretly pass our structured "Prompting Rules" to the AI, forcing it to grade the user's prompt strictly against official industry guidelines.
-* **Document Parsing:** Utilizes `pdf-parse` to handle direct document uploads safely on the backend.
+## Current capabilities
 
-## 🎯 Target Audience
+The current build includes:
 
-This tool was originally built with university students and academic projects (such as data maturity tools) in mind, but it is highly valuable for:
-* Students using AI for coursework and study assistance.
-* Developers building coding projects and testing system prompts.
-* Anyone looking to master effective communication with modern AI models.
+- prompt input through pasted text
+- document ingestion for `.pdf`, `.txt`, and `.md` files
+- prompt extraction preview so users can see the content that was actually assessed
+- assessment dashboard with:
+  - overall score
+  - sub-scores for clarity, context, and intent alignment
+  - strengths
+  - weaknesses
+  - rewritten output under **Better Prompt**
+- copy-to-clipboard support for the rewritten prompt
 
-## 🚀 How It Works
+## Technical architecture
 
-1. **Input:** Paste your prompt or upload a PDF document containing your drafts.
-2. **Context:** Briefly state your end goal and select your target AI model (e.g., GPT-4o, Claude 3.5, Gemini).
-3. **Analyze:** Our Next.js backend securely asks our AI Judge to compare your prompt against the official guidelines.
-4. **Learn & Improve:** Review your score, read the tailored improvement tips, explore the Learning Hub for deeper context, and copy your newly optimized prompt!
+BetterPrompt is built as a full-stack JavaScript application using:
 
----
-*Note: This tool is strictly for assessment and educational purposes. It does not execute the prompts directly against live AI APIs to perform tasks.*
+- **Next.js** for frontend UI and backend API routes
+- **React** for the application interface
+- **Tailwind CSS** for styling
+- **Ollama** for local model inference
+- **Gemma 4** (`gemma4:latest`) as the current local assessment model
+- **pdf-parse** for PDF text extraction
+
+## Assessment flow
+
+The current system works in the following stages:
+
+1. The user provides a goal and either pasted prompt text or an uploaded prompt file.
+2. The backend extracts raw text from the input source.
+3. The system combines that text with internal prompt-engineering rules.
+4. A local Ollama model evaluates the prompt strategy.
+5. The model returns structured assessment data.
+6. The frontend presents the results in a dashboard.
+
+## Rules and evaluation approach
+
+BetterPrompt currently uses a local rules matrix stored in the codebase. This matrix contains:
+
+- universal prompt-writing rules
+- Anthropic-oriented guidance
+- OpenAI-oriented guidance
+- Google-oriented guidance
+
+The evaluator uses these rules as context when scoring prompts. The current implementation is designed to assess both individual prompts and multi-prompt project files as a single overall strategy.
+
+## Current status
+
+The project currently has working support for:
+
+- local prompt assessment with Ollama
+- prompt-file uploads
+- PDF / text / markdown parsing
+- multi-prompt evaluation
+- dashboard-based result presentation
+
+## Known future work
+
+The following items are important next steps:
+
+- prompt-injection resistance
+- stronger score transparency and explanation
+- better prompt segmentation for multi-prompt files
+- richer rule sources and expanded provider guides
+- further UX improvements for presentation scenarios
