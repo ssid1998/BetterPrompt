@@ -1,0 +1,9 @@
+@echo off
+echo Stopping any existing server on port 3000...
+call stop.bat
+
+echo Installing dependencies...
+npm install
+
+echo Starting Next.js development server...
+npm run dev
