@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from "next/image";
 
 const LOADING_PHRASES = [
   "Putting on the judge's wig...",
@@ -32,17 +33,35 @@ type AssessmentResult = {
   };
 };
 
-function ScoreBar({ label, value }: { label: string; value: number }) {
-  const color = value >= 80 ? 'bg-green-500' : value >= 60 ? 'bg-yellow-500' : 'bg-red-500';
+function InfoTooltip({ content }: { content: string }) {
+  return (
+    <div className="group relative ml-2 flex cursor-help items-center justify-center rounded-full bg-slate-200 w-4 h-4 text-[10px] font-bold text-slate-600">
+      ?
+      <div className="absolute bottom-full left-1/2 z-10 mb-2 hidden w-48 -translate-x-1/2 rounded bg-slate-800 p-2 text-xs text-white shadow-lg group-hover:block font-normal text-center pointer-events-none">
+        {content}
+        <div className="absolute left-1/2 top-full h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-slate-800"></div>
+      </div>
+    </div>
+  );
+}
+
+function ScoreBar({ label, value, max = 100, description }: { label: string; value: number; max?: number; description?: string }) {
+  const percentage = (value / max) * 100;
+  const color = percentage >= 80 ? 'bg-green-500' : percentage >= 60 ? 'bg-yellow-500' : 'bg-red-500';
 
   return (
-    <div>
+    <div className="mb-4">
       <div className="mb-1 flex items-center justify-between text-sm font-medium text-gray-700">
-        <span>{label}</span>
-        <span>{value}/100</span>
+        <span className="flex flex-col">
+          <span className="flex items-center">
+            {label}
+            <InfoTooltip content={description || ''} />
+          </span>
+        </span>
+        <span className="font-bold">{value}/{max}</span>
       </div>
       <div className="h-3 w-full overflow-hidden rounded-full bg-gray-200">
-        <div className={`h-full rounded-full ${color}`} style={{ width: `${Math.max(0, Math.min(value, 100))}%` }} />
+        <div className={`h-full rounded-full ${color}`} style={{ width: `${Math.max(0, Math.min(percentage, 100))}%` }} />
       </div>
     </div>
   );
@@ -76,6 +95,26 @@ export default function Home() {
   }, [isLoading]);
 
   const wordCount = (text: string) => text.trim().split(/\s+/).filter(Boolean).length;
+
+  const handleReset = () => {
+    setGoal('');
+    setModelProvider('anthropic');
+    setInputMode('text');
+    setPromptText('');
+    setSelectedFile(null);
+    setError('');
+    setSuccess('');
+    setCopySuccess('');
+    setAssessmentResult(null);
+  };
+
+  const loadSampleVague = () => {
+    handleReset();
+    setGoal('Get an update on the Q3 metrics from my team');
+    setModelProvider('openai');
+    setInputMode('text');
+    setPromptText('Write an email to my boss about the project and include the Q3 numbers.');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -144,18 +183,35 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-50 p-6 text-slate-900 md:p-8">
       <div className="mx-auto max-w-5xl">
-        <div className="mb-8">
-          <h1 className="mb-3 text-4xl font-bold text-blue-700">BetterPrompt</h1>
-          <p className="max-w-3xl text-slate-600">
-            Test your prompts and make them better.
-          </p>
+        <div className="mb-8 flex flex-col items-center md:items-start text-center md:text-left md:flex-row md:justify-between">
+          <div>
+            <div className="inline-flex items-center gap-3 mb-4">
+              <div className="flex h-12 w-12 items-center justify-center bg-blue-600 text-white rounded-xl shadow-md p-2">
+                <Image src="/logo/terminallogo.png" alt="BetterPrompt Logo" width={28} height={28} className="invert brightness-0" />
+              </div>
+              <h1 className="text-4xl font-bold text-slate-900 tracking-tight">Better<span className="text-blue-600">Prompt</span></h1>
+            </div>
+            <p className="max-w-2xl text-lg text-slate-600">
+              Evaluate, refine, and optimize your AI instructions using expert guidelines.
+            </p>
+          </div>
+          
+          <div className="mt-4 md:mt-0 flex gap-2 flex-wrap justify-center">
+            <button onClick={loadSampleVague} className="px-3 py-1.5 text-xs font-medium bg-white border border-slate-300 rounded shadow-sm hover:bg-slate-50 text-slate-700 transition">
+              Load: Vague Prompt
+            </button>
+            <button onClick={handleReset} className="px-3 py-1.5 text-xs font-medium bg-slate-800 border border-slate-800 rounded shadow-sm hover:bg-slate-700 text-white transition">
+              Reset Session
+            </button>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="rounded-2xl bg-white p-6 shadow-lg md:p-8">
           <div className="grid gap-6 md:grid-cols-2">
             <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-700" htmlFor="goal">
+              <label className="mb-2 flex items-center text-sm font-semibold text-slate-700" htmlFor="goal">
                 User Intent (Goal)
+                <InfoTooltip content="What you actually want to achieve. This helps the AI judge if your prompt is aligned with your true goal." />
               </label>
               <input
                 id="goal"
@@ -169,8 +225,9 @@ export default function Home() {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-700" htmlFor="modelProvider">
+              <label className="mb-2 flex items-center text-sm font-semibold text-slate-700" htmlFor="modelProvider">
                 Model Provider
+                <InfoTooltip content="Which AI you are writing this prompt for. Different AI models require different formatting rules." />
               </label>
               <select
                 id="modelProvider"
@@ -178,9 +235,9 @@ export default function Home() {
                 value={modelProvider}
                 onChange={(e) => setModelProvider(e.target.value)}
               >
-                <option value="openai">OpenAI</option>
-                <option value="anthropic">Anthropic</option>
-                <option value="google">Google</option>
+                <option value="openai">OpenAI (ChatGPT)</option>
+                <option value="anthropic">Anthropic (Claude)</option>
+                <option value="google">Google (Gemini)</option>
               </select>
             </div>
           </div>
@@ -217,8 +274,9 @@ export default function Home() {
 
           {inputMode === 'text' ? (
             <div className="mt-6">
-              <label className="mb-2 block text-sm font-semibold text-slate-700" htmlFor="promptText">
+              <label className="mb-2 flex items-center text-sm font-semibold text-slate-700" htmlFor="promptText">
                 Prompt text
+                <InfoTooltip content="The exact instructions you plan to send to the AI." />
               </label>
               <textarea
                 id="promptText"
@@ -232,8 +290,9 @@ export default function Home() {
             </div>
           ) : (
             <div className="mt-6">
-              <label className="mb-2 block text-sm font-semibold text-slate-700" htmlFor="fileUpload">
+              <label className="mb-2 flex items-center text-sm font-semibold text-slate-700" htmlFor="fileUpload">
                 Upload prompts file
+                <InfoTooltip content="Upload a PDF, Markdown, or TXT file containing your prompt or prompt strategy." />
               </label>
               <label
                 htmlFor="fileUpload"
@@ -282,7 +341,7 @@ export default function Home() {
           <div className="mt-6 flex items-center justify-between gap-4">
             <div className="text-sm text-slate-500">Supports one prompt or a full prompt collection.</div>
             <button
-              className={`flex items-center rounded-lg px-6 py-3 font-semibold shadow-sm transition ${
+               className={`flex items-center justify-center min-w-[200px] rounded-lg px-6 py-3 font-semibold shadow-sm transition ${
                 isLoading ? 'cursor-not-allowed bg-slate-400 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'
               }`}
               type="submit"
@@ -307,10 +366,25 @@ export default function Home() {
                   <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">Overall Score</p>
                   <div className="mt-2 text-5xl font-bold text-blue-700">{assessmentResult.score}<span className="text-2xl text-slate-400">/100</span></div>
                 </div>
-                <div className="grid flex-1 gap-4 md:max-w-2xl">
-                  <ScoreBar label="Clarity" value={assessmentResult.subscores.clarity} />
-                  <ScoreBar label="Context" value={assessmentResult.subscores.context} />
-                  <ScoreBar label="Intent Alignment" value={assessmentResult.subscores.intentAlignment} />
+                <div className="grid flex-1 gap-2 md:max-w-2xl">
+                  <ScoreBar 
+                    label="Clarity" 
+                    value={assessmentResult.subscores.clarity} 
+                    max={30}
+                    description="How clear, concise, and unambiguous is the prompt?" 
+                  />
+                  <ScoreBar 
+                    label="Context" 
+                    value={assessmentResult.subscores.context} 
+                    max={30}
+                    description="Does the prompt provide enough background, formatting, and constraints?" 
+                  />
+                  <ScoreBar 
+                    label="Intent Alignment" 
+                    value={assessmentResult.subscores.intentAlignment} 
+                    max={40}
+                    description="How well does this prompt achieve the stated User Goal?" 
+                  />
                 </div>
               </div>
             </div>

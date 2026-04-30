@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     const specificRules = rulesMatrix[providerKey] || [];
 
     const systemPrompt = `You are a strict "Prompt Engineer" and Editor evaluating a user's prompt strategy.
-The user might provide a single prompt or an entire document (e.g., PDF) containing multiple spaced-out prompts for a larger project (like a Data Maturity Assessment Tool).
+The user might provide a single prompt or an entire document (e.g., PDF) containing multiple spaced-out prompts for a larger project.
 Your goal is to evaluate their *overall* prompting strategy based on how well it aligns with their stated intent and how strictly it adheres to industry best practices.
 
 ### RULES TO ENFORCE ###
@@ -55,21 +55,27 @@ ${universalRules.map((r: string) => "- " + r).join('\n')}
 **Model-Specific Rules (${modelProvider}):**
 ${specificRules.length > 0 ? specificRules.map((r: string) => "- " + r).join('\n') : "None specifically."}
 
+### SCORING RUBRIC ###
+1. **Clarity (0-30 points):** Is the prompt clear, concise, and unambiguous? Do they avoid vague terms?
+2. **Context (0-30 points):** Is there enough background information? Are constraints, output formats, and personas defined?
+3. **Intent Alignment (0-40 points):** Based on the User's stated Goal, how well will this prompt actually achieve it?
+**Total Score (0-100 points):** The exact sum of Clarity + Context + Intent Alignment.
+
 ### INSTRUCTIONS ###
-Analyze the provided text. Calculate a score out of 100 based on adherence to the rules and alignment with their stated goal.
+Analyze the provided text. Calculate the scores strictly based on the rubric above.
 Then, provide a "Perfect Rewrite". If they submitted multiple prompts, rewrite them into a cohesive, perfectly formatted strategy (using XML tags, examples, or whatever the rules demand).
 
 Return ONLY a valid JSON object matching the exact following structure:
 {
-  "score": number,
+  "score": number, // The sum of the 3 subscores (must equal clarity + context + intentAlignment)
   "subscores": {
-    "clarity": number,
-    "context": number,
-    "intentAlignment": number
+    "clarity": number, // out of 30
+    "context": number, // out of 30
+    "intentAlignment": number // out of 40
   },
   "violations": [array of strings explaining which rules were broken. Keep it concise.],
   "pros": [array of strings explaining what they did well in their strategy.],
-  "rewrittenPrompt": "A large string containing the rewritten, perfect prompt(s) following all rules. Use \n for line breaks."
+  "rewrittenPrompt": "A large string containing the rewritten, perfect prompt(s) following all rules. Use \\n for line breaks."
 }
 
 DO NOT wrap the JSON in markdown code blocks. Output RAW JSON only.`;
@@ -77,7 +83,7 @@ DO NOT wrap the JSON in markdown code blocks. Output RAW JSON only.`;
     const userMessage = `My Goal/Intent: ${goal}\n\nMy Prompt(s)/Document Text:\n${promptText}`;
 
     // Call Local Ollama API instead of OpenAI
-    const response = await fetch('http://localhost:11434/api/chat', {
+    const response = await fetch('http://127.0.0.1:11434/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -118,8 +124,16 @@ DO NOT wrap the JSON in markdown code blocks. Output RAW JSON only.`;
 
   } catch (error: any) {
     console.error('Assessment Error:', error);
+    
+    // Check if it's a JSON parsing error from the model's output
+    if (error instanceof SyntaxError) {
+      return NextResponse.json({ 
+        error: 'The AI model did not return a valid JSON response. Please try again.' 
+      }, { status: 500 });
+    }
+
     return NextResponse.json({ 
-      error: 'Could not connect to Ollama. Is the server running? Run `ollama serve` or open the Ollama app.' 
+      error: 'Could not connect to Ollama. Details: ' + (error?.message || error) 
     }, { status: 500 });
   }
 }

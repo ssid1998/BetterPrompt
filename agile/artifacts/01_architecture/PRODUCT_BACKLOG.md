@@ -72,6 +72,9 @@ Status: **Architecture Approved**
 *   `[FEAT]` **Story 6.3: Model-Specific Cheat Sheets** (Demo: Dedicated sections explaining Claude XML and OpenAI Markdown).
 *   `[ARCH-ADD]` **Story 6.4: DRY Rule Rendering**
     *   *Rationale: Ensure the Learn page reads directly from the `Rules JSON Matrix` (Story 2.0) so we only update rules in one place.*
+*   `[TECH-ENABLER]` **Story 6.5: Rules Matrix Expansion from Official Sources**
+    *   *Rationale: The `rules.json` knowledge base should stay aligned with official provider guidance and carefully selected third-party educational sources so assessment quality improves over time.*
+*   `[FEAT]` **Story 6.6: External Prompting Concepts Integration** (Demo: BetterPrompt Learn pages include curated concepts from PromptingGuide.ai alongside provider-specific rules.)
 
 ### Epic 5: Educational Demo Showcase
 **Goal:** Guarantee a smooth, impressive presentation for the university professor.
@@ -80,6 +83,8 @@ Status: **Architecture Approved**
 *   `[FEAT]` **Story 5.3: Pre-loaded Wrong Model Example**
 *   `[FEAT]` **Story 5.4: Guided Tour/Tooltips**
 *   `[FEAT]` **Story 5.5: Presentation Reset Feature**
+*   `[FEAT]` **Story 5.6: Sample Prompt Library** (Demo: User can choose from multiple goal + prompt combinations for faster demos and comparisons.)
+*   `[FEAT]` **Story 5.7: Advanced Options Drawer** (Demo: Basic users see a simpler UI, while advanced users can expand provider and model selection controls.)
 
 ---
 
