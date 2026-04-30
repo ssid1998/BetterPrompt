@@ -75,6 +75,10 @@ Status: **Architecture Approved**
 *   `[TECH-ENABLER]` **Story 6.5: Rules Matrix Expansion from Official Sources**
     *   *Rationale: The `rules.json` knowledge base should stay aligned with official provider guidance and carefully selected third-party educational sources so assessment quality improves over time.*
 *   `[FEAT]` **Story 6.6: External Prompting Concepts Integration** (Demo: BetterPrompt Learn pages include curated concepts from PromptingGuide.ai alongside provider-specific rules.)
+*   `[FEAT]` **Story 6.7: Learning Copilot Chat Tutor** (Demo: A small chat assistant appears on the Learn Hub and provider pages to answer prompt-engineering questions.)
+*   `[TECH-ENABLER]` **Story 6.8: Locked Teaching System Prompt & Memory**
+    *   *Rationale: The Learning Copilot should stay focused on teaching prompt engineering, remember the conversation during the session, and resist prompt-breaking attempts.*
+*   `[FEAT]` **Story 6.9: BetterPrompt-Only Citation Links** (Demo: The tutor links users to BetterPrompt Learn pages or the main Assessor Tool instead of external websites.)
 
 ### Epic 5: Educational Demo Showcase
 **Goal:** Guarantee a smooth, impressive presentation for the university professor.

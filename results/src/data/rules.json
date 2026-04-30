@@ -3,26 +3,58 @@
     "Clarity and Directness: Be as clear and direct as possible. Avoid vague language. Write as if you are giving instructions to a literal-minded intern.",
     "Role Prompting: Assign a specific role or persona to the AI (e.g., 'Act as a senior copywriter').",
     "Avoid Negative Constraints: Tell the AI what *to* do instead of what *not* to do (e.g., 'Keep it concise' instead of 'Don't write a lot').",
-    "Formatting Output: Explicitly specify the desired output format (e.g., list, table, JSON, essay)."
+    "Formatting Output: Explicitly specify the desired output format (e.g., list, table, JSON, essay).",
+    "Relevant Context: Include the background information, source material, constraints, and audience details that materially affect the answer.",
+    "Examples When Needed: If the task is nuanced or format-sensitive, provide a few strong examples of the kind of output you want.",
+    "Verification Mindset: Ask the model to check its work, flag uncertainty, and separate supported facts from assumptions when accuracy matters."
   ],
   "openai": [
-    "Markdown Structure: Use Markdown for formatting and structure.",
+    "Outcome-First Prompting: Define the goal, success criteria, constraints, and evidence, then let the model choose the most efficient path.",
+    "Keep Prompts Lean: Newer GPT models often perform better with shorter, less process-heavy prompts than older prompt stacks.",
     "Instruction Placement: Place primary instructions at the very beginning of the prompt.",
     "Delimiters: Use delimiters like ### or \"\"\" to separate distinct parts of text.",
-    "System Messages: Utilize the System message effectively to set the core behavior and tone."
+    "Personality and Collaboration Style: Define tone and working style briefly so the assistant sounds right without replacing task instructions.",
+    "Success Criteria: State what 'done' looks like before the model finishes.",
+    "Stopping Rules: Tell the model when it has enough evidence, when to ask for missing information, and when to stop searching or iterating.",
+    "Output Contracts: Clearly specify the required sections, order, format, and length limits.",
+    "Retrieval Budgets: Use the minimum evidence needed to answer correctly, then stop instead of searching endlessly for polish.",
+    "Validation Before Finalizing: Ask the model to verify correctness, grounding, formatting, and missing requirements before returning the answer."
   ],
   "anthropic": [
     "Basic Structure: Use a clear structure. Context first, instructions last.",
     "Separating Data from Instructions: Always use XML tags (e.g., <context>, <instructions>, <example>) to structure the prompt and separate data so Claude doesn't get confused.",
-    "Speaking for Claude/Prefilling: Pre-fill Claude's response (e.g., ending the prompt with '{ \"result\": ') to force a specific JSON or formatting output.",
-    "Precognition / Thinking Step by Step: Encourage Claude to think by asking it to put its reasoning inside <thinking> tags before producing the final output. This radically improves accuracy.",
+    "Use Positive Guidance: Tell Claude what good output looks like instead of relying on long lists of prohibitions.",
+    "Reasoning Depth Control: Ask Claude to think carefully for multi-step tasks, but keep the reasoning guidance targeted so it does not overthink simple work.",
     "Using Examples / Few-Shot Prompting: Provide 1-3 examples of the desired input and output to guide the model. Wrap them in <examples><example>...</example></examples> tags.",
+    "Long Context Placement: Put large documents near the top of the prompt and ask Claude to ground its answer in quoted evidence.",
     "Avoiding Hallucinations: Give Claude an 'out'. Explicitly instruct the model to say 'I don't know' if the answer is not present in the provided context. Ask it to extract literal quotes before synthesizing an answer.",
+    "Tool Use and Follow-Through: Be explicit when you want Claude to take action instead of only making suggestions.",
+    "Literal Scope: Claude follows instructions more literally, so clearly state whether a rule applies to one section or every section.",
+    "Formatting Control: If you want prose instead of bullet-heavy output, say so directly and match your prompt style to the desired response style.",
     "Complex Prompts: Combine all of the above: Define a Role, Provide Context inside XML, Add Examples, Give clear Instructions, ask for <thinking>, and specify the Output Format."
   ],
   "google": [
+    "PTCF Structure: Define Persona, Task, Context, and Format explicitly to guide Gemini clearly.",
     "High Specificity: Be highly specific and granular with constraints.",
-    "Bullet Points: Use clear bullet points for complex instructions rather than long paragraphs.",
-    "Context Provision: Provide ample background context, as Gemini relies heavily on surrounding context windows."
+    "Audience Framing: Tell Gemini who the output is for so tone and detail match the reader.",
+    "Grounding in Source Material: Point Gemini to the relevant notes, files, or documents so it uses your real context.",
+    "Focus Filters: Add qualifiers such as urgent, customer-facing, or leadership-ready to narrow the scope.",
+    "Explicit Output Shape: Ask for bullets, tables, emails, trackers, summaries, or slide copy when you want immediately usable output.",
+    "Constraint Setting: Define limits for length, tone, sections, and things to avoid so the response stays on task.",
+    "Iterative Prompting: Break large tasks into stages and refine across turns instead of expecting a perfect mega-prompt response.",
+    "Fact vs Assumption Separation: Ask Gemini to separate source-backed facts, assumptions, and gaps when accuracy is important.",
+    "Verification Cues: Require uncertainty flags, source-grounded claims, or suggested double-checks for high-stakes outputs."
+  ],
+  "promptingGuide": [
+    "Start Simple and Iterate: Begin with a straightforward prompt, test it, and layer in extra detail only when it improves results.",
+    "Specific Commands Work Better: Use direct verbs like write, classify, summarize, translate, or extract so the task is unmistakable.",
+    "Prompt Chaining: Break complex workflows into smaller prompt steps when one giant prompt becomes brittle or hard to debug.",
+    "Few-Shot Prompting: Provide a few representative examples when format, tone, or labeling consistency matters.",
+    "Examples Need Strong Format: The quality and structure of examples often matter as much as the exact labels inside them.",
+    "Say What To Do: Positive instructions usually outperform prompts that mostly describe forbidden behavior.",
+    "Use Separators Deliberately: Headings, XML tags, quotes, and delimiters help distinguish instructions from data.",
+    "Prompt Injection Awareness: Treat user-provided text as untrusted input and format it carefully so it cannot easily override your instructions.",
+    "Parameterize Untrusted Inputs: Keep system instructions and user content conceptually separated, similar to safe query design.",
+    "Adversarial Detection: For sensitive workflows, consider adding a separate review step that flags suspicious or manipulative prompts before execution."
   ]
 }

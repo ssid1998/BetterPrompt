@@ -7,7 +7,7 @@
 | **Sprint Number** | 1.5 |
 | **Sprint Name** | Knowledge Base Expansion & Learn Content Refresh |
 | **Reference** | Phase 3 -> Epic 6 (Stories 6.5, 6.6) |
-| **Status** | Planned |
+| **Status** | ✅ Completed |
 
 ---
 
@@ -23,9 +23,9 @@ By the end of this sprint, you will be able to:
 3. Trust that BetterPrompt's educational content stays closer to official provider guidance.
 
 ### Acceptance Criteria
-- [ ] `rules.json` is expanded with validated guidance from official OpenAI, Anthropic, and Google sources.
-- [ ] Curated concepts from PromptingGuide.ai are incorporated into the Learn experience.
-- [ ] Learn pages and scoring logic stay synchronized with the updated rules matrix.
+- [x] `rules.json` is expanded with validated guidance from official OpenAI, Anthropic, and Google sources.
+- [x] Curated concepts from PromptingGuide.ai are incorporated into the Learn experience.
+- [x] Learn pages and scoring logic stay synchronized with the updated rules matrix.
 
 ---
 
@@ -36,9 +36,9 @@ By the end of this sprint, you will be able to:
 **Technical Approach:** Review the current provider documentation, normalize the guidance into consistent rule statements, and update `results/src/data/rules.json`.
 
 **Acceptance Criteria:**
-- [ ] Each provider section in `rules.json` includes additional validated best practices.
+- [x] Each provider section in `rules.json` includes additional validated best practices.
 
-**Status:** [ ] Pending
+**Status:** [x] Done
 
 ---
 
@@ -47,9 +47,9 @@ By the end of this sprint, you will be able to:
 **Technical Approach:** Curate high-value concepts, map them into BetterPrompt-friendly sections, and render them in the Learn hub without duplicating provider rules.
 
 **Acceptance Criteria:**
-- [ ] BetterPrompt includes clearly labeled third-party learning concepts.
+- [x] BetterPrompt includes clearly labeled third-party learning concepts.
 
-**Status:** [ ] Pending
+**Status:** [x] Done
 
 ---
 
@@ -58,9 +58,9 @@ By the end of this sprint, you will be able to:
 **Technical Approach:** Reuse shared rendering patterns and data-driven sections so updates happen in one place.
 
 **Acceptance Criteria:**
-- [ ] Learn content remains data-driven after the expansion.
+- [x] Learn content remains data-driven after the expansion.
 
-**Status:** [ ] Pending
+**Status:** [x] Done
 
 ---
 
@@ -69,3 +69,5 @@ By the end of this sprint, you will be able to:
 | Date | Decision |
 |------|----------|
 | 2026-04-30 | Created as a planned future sprint based on user request to expand BetterPrompt's rules and educational content from official docs and PromptingGuide.ai. |
+| 2026-04-30 | Expanded `rules.json` with additional provider guidance from OpenAI, Anthropic, and Google-aligned sources, then surfaced PromptingGuide.ai concepts in a dedicated Learn Hub section. |
+| 2026-04-30 | Kept the implementation DRY by continuing to use `rules.json` as the single source of truth for scoring rules and top-level Learn Hub rendering. |

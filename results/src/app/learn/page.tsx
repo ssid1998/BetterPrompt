@@ -42,6 +42,34 @@ export default function LearnPage() {
             </ul>
           </section>
 
+          <section className="rounded-2xl bg-slate-900 p-8 shadow-sm border border-slate-800 text-white">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="h-10 w-10 rounded-lg bg-white/10 flex items-center justify-center text-sky-300">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" /></svg>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight">PromptingGuide.ai Concepts</h2>
+                <p className="text-sm text-slate-300">Curated cross-model ideas for stronger prompt design and safer workflows.</p>
+              </div>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {rules.promptingGuide.map((rule, idx) => {
+                const [title, ...rest] = rule.split(': ');
+                const description = rest.join(': ');
+
+                return (
+                  <div key={idx} className="rounded-xl border border-white/10 bg-white/5 p-5">
+                    <h3 className="text-base font-semibold text-white">{title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">{description}</p>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="mt-6 rounded-xl border border-sky-400/20 bg-sky-400/10 px-4 py-3 text-sm text-sky-100">
+              Source inspiration: PromptingGuide.ai, curated into BetterPrompt-friendly rules.
+            </div>
+          </section>
+
           {/* Anthropic Card */}
           <section className={`rounded-2xl bg-[#F9F7F4] p-8 shadow-sm border border-[#EBE5DA] border-t-4 border-t-[#D0B7A1] ${inter.className}`}>
             <h2 className={`text-2xl font-bold text-[#1A1A1A] mb-6 flex items-center gap-3 ${fraunces.className}`}>
