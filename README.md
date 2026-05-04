@@ -1,10 +1,18 @@
 # BetterPrompt
 
+<p align="left">
+  <img src="results/public/logo/terminallogo.png" alt="BetterPrompt Logo" width="72" />
+</p>
+
 BetterPrompt is an educational prompt-review tool. Its purpose is to evaluate prompts against prompt-engineering best practices, explain what is working and what is weak, and generate a stronger rewritten version.
 
 The public web application lives in the `results/` folder.
 
 If you are publishing or deploying BetterPrompt, that is the main app to use. Internal planning and workflow materials are not required for the public product experience.
+
+## Screenshot
+
+![BetterPrompt home screen](./results/public/Home.png)
 
 ## Current product scope
 

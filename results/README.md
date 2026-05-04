@@ -1,5 +1,9 @@
 # BetterPrompt
 
+<p align="left">
+  <img src="./public/logo/terminallogo.png" alt="BetterPrompt Logo" width="72" />
+</p>
+
 BetterPrompt is an educational prompt-review tool. Its purpose is to evaluate prompts against prompt-engineering best practices, explain what is working and what is weak, and generate a stronger rewritten version.
 
 The current implementation includes the assessor, provider-aware guidance, a learning tutor, prompt safety checks, and a presentation-ready feedback experience.
