@@ -2,7 +2,9 @@
 
 BetterPrompt is an educational prompt-review tool. Its purpose is to evaluate prompts against prompt-engineering best practices, explain what is working and what is weak, and generate a stronger rewritten version.
 
-The project is still under construction. The current implementation focuses on the assessment pipeline, local model integration, document ingestion, and a presentation-ready feedback dashboard.
+The public web application lives in the `results/` folder.
+
+If you are publishing or deploying BetterPrompt, that is the main app to use. Internal planning and workflow materials are not required for the public product experience.
 
 ## Current product scope
 

@@ -1,0 +1,16 @@
+.DS_Store
+.opencode/
+*.log
+session-*.md
+
+node_modules/
+results/node_modules/
+results/.DS_Store
+results/ollama.log
+
+results/temp_anthropic_tutorial/
+results/gemini_prompting_guide/
+results/logo/
+
+.next/
+results/.next/

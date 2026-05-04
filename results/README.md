@@ -2,7 +2,7 @@
 
 BetterPrompt is an educational prompt-review tool. Its purpose is to evaluate prompts against prompt-engineering best practices, explain what is working and what is weak, and generate a stronger rewritten version.
 
-The current implementation includes the assessor, provider-aware guidance, a learning tutor, deterministic guardrails, and a presentation-ready feedback experience.
+The current implementation includes the assessor, provider-aware guidance, a learning tutor, prompt safety checks, and a presentation-ready feedback experience.
 
 ## Screenshot
 
@@ -51,28 +51,25 @@ BetterPrompt is built as a full-stack JavaScript application using:
 - **Gemma 4** (`gemma4:latest`) as the local assessment and learning-copilot model
 - **pdf-parse** for PDF text extraction
 
+## Model-aware prompting
+
+BetterPrompt is designed around the idea that different providers often respond best to different prompt styles.
+
+- **Anthropic / Claude** often benefits from clear XML-style structure and explicit context separation.
+- **OpenAI / GPT** usually works well with direct goals, constraints, and clearly requested output formats.
+- **Google Gemini** often benefits from a clear Persona, Task, Context, and Format structure.
+
 ## Assessment flow
 
 The current system works in the following stages:
 
 1. The user provides a goal and either pasted prompt text or an uploaded prompt file.
 2. The backend extracts raw text from the input source.
-3. The system combines that text with internal prompt-engineering rules.
+3. The system evaluates the prompt against provider-aware guidance and quality checks.
 4. A local Ollama model evaluates the prompt strategy.
 5. Deterministic guardrails validate structural signals and scan for prompt-injection attempts.
 6. The model returns structured assessment data.
 7. The frontend presents the results in a dashboard.
-
-## Rules and evaluation approach
-
-BetterPrompt currently uses a local rules matrix stored in the codebase. This matrix contains:
-
-- universal prompt-writing rules
-- Anthropic-oriented guidance
-- OpenAI-oriented guidance
-- Google-oriented guidance
-
-The evaluator uses these rules as context when scoring prompts. The current implementation is designed to assess both individual prompts and multi-prompt project files as a single overall strategy.
 
 ## Current status
 
@@ -83,7 +80,7 @@ The project currently has working support for:
 - PDF / text / markdown parsing
 - multi-prompt evaluation
 - dashboard-based result presentation
-- learning-page chat tutoring with BetterPrompt-only internal citations
+- learning-page and assessor-page tutoring
 - assessor-page tutor access
 - deterministic XML / structure checks
 - prompt-injection and score-manipulation detection
