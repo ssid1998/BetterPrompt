@@ -1,7 +1,7 @@
 # BetterPrompt
 
 <p align="left">
-  <img src="results/public/logo/terminallogo.png" alt="BetterPrompt Logo" width="72" />
+  <img src="results/public/logo/terminallogo.png" alt="BetterPrompt Logo" width="20" />
 </p>
 
 BetterPrompt is an educational prompt-review tool. Its purpose is to evaluate prompts against prompt-engineering best practices, explain what is working and what is weak, and generate a stronger rewritten version.
