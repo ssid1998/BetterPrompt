@@ -17,7 +17,7 @@ export default function LearnPage() {
           <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-[24px] bg-[var(--bp-text)] p-4">
             <Image src="/logo/terminallogo.png" alt="BetterPrompt Logo" width={40} height={40} className="invert brightness-0" />
           </div>
-          <h1 className="bp-display mb-4 text-4xl font-semibold">Prompt Engineering Hub</h1>
+          <h1 className="bp-display mb-4 text-4xl font-semibold">Learn Hub</h1>
           <p className="mx-auto max-w-2xl text-lg text-[var(--bp-text-muted)]">
             Master the art of communicating with Large Language Models. 
             Review universal best practices and provider-specific guidelines below.
