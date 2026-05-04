@@ -17,6 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "BetterPrompt",
   description: "Refine your AI prompts using expert guidelines.",
+  icons: {
+    icon: "/logo/terminallogo.png",
+    shortcut: "/logo/terminallogo.png",
+    apple: "/logo/terminallogo.png",
+  },
 };
 
 export default function RootLayout({
@@ -29,24 +34,21 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 font-sans">
-        <nav className="sticky top-0 z-50 bg-white shadow-sm border-b border-slate-200">
-          <div className="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl text-slate-900 tracking-tight group">
-              <div className="flex items-center justify-center bg-blue-600 rounded-lg p-1.5 shadow-sm group-hover:bg-blue-700 transition-colors h-8 w-8">
-                <Image src="/logo/terminallogo.png" alt="BetterPrompt Logo" width={20} height={20} className="invert brightness-0" />
+      <body className="min-h-full flex flex-col font-sans">
+        <nav className="sticky top-0 z-50 border-b border-[var(--bp-stroke)] bg-[color:rgba(250,250,250,0.92)] backdrop-blur">
+          <div className="bp-shell flex h-[56px] items-center justify-between px-1 sm:px-2">
+            <Link href="/" className="group flex items-center gap-2.5 text-[19px] font-semibold tracking-[-0.04em] text-[var(--bp-text)]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[var(--bp-text)] transition-colors group-hover:bg-[var(--bp-accent)]">
+                <Image src="/logo/terminallogo.png" alt="BetterPrompt Logo" width={18} height={18} className="invert brightness-0" />
               </div>
-              <span>Better<span className="text-blue-600">Prompt</span></span>
+              <span>Better<span className="text-[var(--bp-accent)]">Prompt</span></span>
             </Link>
-            <div className="flex gap-6">
-              <Link href="/" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">
-                Assessor Tool
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Link href="/scoring" className="bp-button-secondary px-3 py-1.5 text-xs font-semibold sm:px-4">
+                Scoring
               </Link>
-              <Link href="/scoring" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">
-                How Scoring Works
-              </Link>
-              <Link href="/learn" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">
-                Learn Prompting
+              <Link href="/learn" className="bp-button-secondary px-3 py-1.5 text-xs font-semibold sm:px-4">
+                Learn
               </Link>
             </div>
           </div>

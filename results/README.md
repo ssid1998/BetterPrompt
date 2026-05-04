@@ -2,7 +2,11 @@
 
 BetterPrompt is an educational prompt-review tool. Its purpose is to evaluate prompts against prompt-engineering best practices, explain what is working and what is weak, and generate a stronger rewritten version.
 
-The project is still under construction. The current implementation focuses on the assessment pipeline, local model integration, document ingestion, and a presentation-ready feedback dashboard.
+The current implementation includes the assessor, provider-aware guidance, a learning tutor, deterministic guardrails, and a presentation-ready feedback experience.
+
+## Screenshot
+
+![BetterPrompt home screen](./public/Home.png)
 
 ## Current product scope
 
@@ -10,10 +14,12 @@ At this stage, BetterPrompt supports:
 
 - assessment of a single prompt or a collection of prompts
 - user intent capture
-- model-provider-aware evaluation
+- model-provider-aware evaluation with provider + model targeting
 - upload and parsing of prompt files
 - scoring and feedback generation
 - rewritten prompt generation
+- prompt-structure checks and injection detection
+- BetterPrompt Tutor on the assessor and learn experiences
 
 ## Current capabilities
 
@@ -27,8 +33,11 @@ The current build includes:
   - sub-scores for clarity, context, and intent alignment
   - strengths
   - weaknesses
+  - prompt structure signals
+  - injection pass/fail check
   - rewritten output under **Better Prompt**
 - **Copy-to-clipboard** support for the rewritten prompt
+- **Learning Copilot / BetterPrompt Tutor** on the assessor and Learn pages for prompt-engineering Q&A
 
 ## Technical architecture
 
@@ -39,6 +48,7 @@ BetterPrompt is built as a full-stack JavaScript application using:
 - **Tailwind CSS** for styling
 - **Ollama** for local model inference
 - **Gemma 4** (`gemma4:latest`) as the current local assessment model
+- **Gemma 4** (`gemma4:latest`) as the local assessment and learning-copilot model
 - **pdf-parse** for PDF text extraction
 
 ## Assessment flow
@@ -49,8 +59,9 @@ The current system works in the following stages:
 2. The backend extracts raw text from the input source.
 3. The system combines that text with internal prompt-engineering rules.
 4. A local Ollama model evaluates the prompt strategy.
-5. The model returns structured assessment data.
-6. The frontend presents the results in a dashboard.
+5. Deterministic guardrails validate structural signals and scan for prompt-injection attempts.
+6. The model returns structured assessment data.
+7. The frontend presents the results in a dashboard.
 
 ## Rules and evaluation approach
 
@@ -72,12 +83,16 @@ The project currently has working support for:
 - PDF / text / markdown parsing
 - multi-prompt evaluation
 - dashboard-based result presentation
+- learning-page chat tutoring with BetterPrompt-only internal citations
+- assessor-page tutor access
+- deterministic XML / structure checks
+- prompt-injection and score-manipulation detection
+- provider-specific learning templates for OpenAI, Anthropic, and Google
 
 ## Known future work
 
 The following items are important next steps:
 
-- prompt-injection resistance
 - stronger score transparency and explanation
 - better prompt segmentation for multi-prompt files
 - richer rule sources and expanded provider guides

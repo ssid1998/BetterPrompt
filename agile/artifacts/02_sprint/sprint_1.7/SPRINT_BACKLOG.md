@@ -7,7 +7,7 @@
 | **Sprint Number** | 1.7 |
 | **Sprint Name** | Learning Copilot Chat Tutor |
 | **Reference** | Phase 3 -> Epic 6 (Stories 6.7, 6.8, 6.9) |
-| **Status** | Planned |
+| **Status** | ✅ Completed |
 
 ---
 
@@ -24,12 +24,12 @@ By the end of this sprint, you will be able to:
 4. Be redirected to the main Assessor Tool when asking for direct prompt critique.
 
 ### Acceptance Criteria
-- [ ] A small chat tutor appears on `/learn` and the provider-specific learning pages.
-- [ ] The tutor answers only prompting and prompt-engineering questions.
-- [ ] The tutor remembers the conversation during the current session.
-- [ ] The tutor links only to BetterPrompt pages and not to external documentation.
-- [ ] If a user asks for prompt critique, the tutor tells them to use the main BetterPrompt Assessor Tool.
-- [ ] The system prompt is hard-coded and designed to resist prompt-breaking attempts as much as practical.
+- [x] A small chat tutor appears on `/learn` and the provider-specific learning pages.
+- [x] The tutor answers only prompting and prompt-engineering questions.
+- [x] The tutor remembers the conversation during the current session.
+- [x] The tutor links only to BetterPrompt pages and not to external documentation.
+- [x] If a user asks for prompt critique, the tutor tells them to use the main BetterPrompt Assessor Tool.
+- [x] The system prompt is hard-coded and designed to resist prompt-breaking attempts as much as practical.
 
 ---
 
@@ -40,9 +40,9 @@ By the end of this sprint, you will be able to:
 **Technical Approach:** Create a shared chat component that can be embedded across `/learn`, `/learn/openai`, `/learn/anthropic`, and `/learn/google`.
 
 **Acceptance Criteria:**
-- [ ] Users can open and use the tutor from all learning pages.
+- [x] Users can open and use the tutor from all learning pages.
 
-**Status:** [ ] Pending
+**Status:** [x] Done
 
 ---
 
@@ -51,9 +51,9 @@ By the end of this sprint, you will be able to:
 **Technical Approach:** Create a dedicated API route for the tutor and send it a locked teaching system prompt plus selected BetterPrompt learning context.
 
 **Acceptance Criteria:**
-- [ ] The tutor responds using the local model and BetterPrompt learning context.
+- [x] The tutor responds using the local model and BetterPrompt learning context.
 
-**Status:** [ ] Pending
+**Status:** [x] Done
 
 ---
 
@@ -62,9 +62,9 @@ By the end of this sprint, you will be able to:
 **Technical Approach:** Add hard-coded rules in the system prompt and response logic so critique requests are redirected to the main Assessor Tool.
 
 **Acceptance Criteria:**
-- [ ] Prompt-critique requests are redirected to BetterPrompt's main assessment workflow.
+- [x] Prompt-critique requests are redirected to BetterPrompt's main assessment workflow.
 
-**Status:** [ ] Pending
+**Status:** [x] Done
 
 ---
 
@@ -73,9 +73,9 @@ By the end of this sprint, you will be able to:
 **Technical Approach:** Provide the tutor with an internal page map and require replies to link only to BetterPrompt routes.
 
 **Acceptance Criteria:**
-- [ ] Tutor replies can link to BetterPrompt Learn pages and the Assessor Tool.
+- [x] Tutor replies can link to BetterPrompt Learn pages and the Assessor Tool.
 
-**Status:** [ ] Pending
+**Status:** [x] Done
 
 ---
 
@@ -84,10 +84,10 @@ By the end of this sprint, you will be able to:
 **Technical Approach:** Store chat history for the active session and design the system prompt plus server-side checks to keep the assistant in teacher mode.
 
 **Acceptance Criteria:**
-- [ ] The tutor remembers the conversation during the session.
-- [ ] The tutor stays focused on prompting education even when users try to derail it.
+- [x] The tutor remembers the conversation during the session.
+- [x] The tutor stays focused on prompting education even when users try to derail it.
 
-**Status:** [ ] Pending
+**Status:** [x] Done
 
 ---
 
@@ -99,3 +99,6 @@ By the end of this sprint, you will be able to:
 | 2026-04-30 | Tutor scope is intentionally limited to prompting and prompt engineering. Prompt critique should redirect users to the main BetterPrompt Assessor Tool. |
 | 2026-04-30 | Citations should point only to BetterPrompt pages, not external documentation. |
 | 2026-04-30 | Conversation memory is required for the active session. |
+| 2026-04-30 | Implemented client-side session memory using `sessionStorage`, while keeping the tutor model stateless on the server beyond the messages provided by the client. |
+| 2026-04-30 | Added server-side scope checks for prompt-critique requests and non-prompting questions before sending requests to the local Ollama tutor model. |
+| 2026-05-04 | Sprint formally closed after review confirmed all acceptance criteria were implemented and all backlog tasks were complete. |

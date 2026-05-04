@@ -7,7 +7,7 @@
 | **Sprint Number** | 1.3 |
 | **Sprint Name** | Document Ingestion & Feedback Dashboard |
 | **Reference** | Phase 2 -> Epic 1 (Continued) & Epic 4 |
-| **Status** | In Progress |
+| **Status** | ✅ Completed |
 
 ---
 

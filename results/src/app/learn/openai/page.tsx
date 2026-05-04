@@ -1,6 +1,8 @@
 import Link from "next/link";
 import rules from "@/data/rules.json";
 import { Inter } from "next/font/google";
+import BetterPromptTemplateCard from "@/components/learn/better-prompt-template-card";
+import LearningCopilot from "@/components/learn/learning-copilot";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,11 +54,19 @@ export default function OpenAILearnPage() {
               <div>
                 <h3 className="text-lg font-semibold">2. Explicit Stopping Conditions & Budgets</h3>
                 <p className="text-[#333333] mt-2 font-light">
-                  Define "Retrieval Budgets". Tell the model exactly when enough evidence is enough.
+                  Define &quot;Retrieval Budgets&quot;. Tell the model exactly when enough evidence is enough.
                 </p>
               </div>
             </div>
           </section>
+
+          <BetterPromptTemplateCard
+            templateLines={rules.openaiTemplate}
+            title="OpenAI BetterPrompt Template"
+            description="Designed for GPT-style prompts that benefit from clear goals, constraints, and structured output contracts."
+            buttonClassName="bg-black hover:bg-slate-800 text-white"
+            messageClassName="text-emerald-300"
+          />
 
           <section className="rounded-xl bg-[#F7F7F8] p-6 border border-[#E5E5E5]">
             <h3 className="text-xs font-semibold text-[#666666] uppercase tracking-widest mb-3">References & Sources</h3>
@@ -68,6 +78,13 @@ export default function OpenAILearnPage() {
               </li>
             </ul>
           </section>
+
+          <LearningCopilot
+            page="openai"
+            title="OpenAI BetterPrompt Tutor"
+            accentClassName="bg-black text-white hover:bg-slate-800"
+            panelClassName="border-[#E5E5E5] bg-white"
+          />
         </div>
       </div>
     </main>

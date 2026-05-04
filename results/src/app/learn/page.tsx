@@ -1,6 +1,8 @@
 import Image from "next/image";
 import rules from "@/data/rules.json";
 import { Inter, Fraunces, Outfit } from "next/font/google";
+import BetterPromptTemplateCard from "@/components/learn/better-prompt-template-card";
+import LearningCopilot from "@/components/learn/learning-copilot";
 
 const inter = Inter({ subsets: ["latin"] });
 const fraunces = Fraunces({ subsets: ["latin"] });
@@ -8,14 +10,15 @@ const outfit = Outfit({ subsets: ["latin"] });
 
 export default function LearnPage() {
   return (
-    <main className="p-6 text-slate-900 md:p-8">
-      <div className="mx-auto max-w-4xl">
+    <main className="bg-[var(--bp-bg)] px-4 py-6 text-[var(--bp-text)] md:px-6 md:py-8">
+      <div className="bp-shell max-w-4xl">
         <div className="mb-12 text-center">
-          <div className="inline-flex items-center justify-center bg-blue-100 rounded-2xl p-4 mb-6 h-20 w-20">
-            <Image src="/logo/terminallogo.png" alt="BetterPrompt Logo" width={40} height={40} className="opacity-80" style={{ filter: 'invert(35%) sepia(85%) saturate(2256%) hue-rotate(211deg) brightness(97%) contrast(97%)' }} />
+          <p className="bp-kicker mb-3">Learn hub</p>
+          <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-[24px] bg-[var(--bp-text)] p-4">
+            <Image src="/logo/terminallogo.png" alt="BetterPrompt Logo" width={40} height={40} className="invert brightness-0" />
           </div>
-          <h1 className="mb-4 text-4xl font-bold text-slate-900 tracking-tight">Prompt Engineering Hub</h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <h1 className="bp-display mb-4 text-4xl font-semibold">Prompt Engineering Hub</h1>
+          <p className="mx-auto max-w-2xl text-lg text-[var(--bp-text-muted)]">
             Master the art of communicating with Large Language Models. 
             Review universal best practices and provider-specific guidelines below.
           </p>
@@ -23,50 +26,46 @@ export default function LearnPage() {
 
         <div className="space-y-12">
           {/* Universal Guidelines */}
-          <section className="rounded-2xl bg-white p-8 shadow-sm border border-slate-200">
-            <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
-              <div className="h-10 w-10 bg-slate-100 rounded-lg flex items-center justify-center text-slate-600">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              </div>
-              Universal Guidelines
-            </h2>
-            <ul className="space-y-4">
-              {rules.universal.map((rule, idx) => (
-                <li key={idx} className="flex gap-4">
-                  <span className="text-slate-400 mt-1">
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                  </span>
-                  <span className="text-slate-700 leading-relaxed">{rule}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="rounded-2xl bg-slate-900 p-8 shadow-sm border border-slate-800 text-white">
+          <section className="bp-panel rounded-3xl p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-white/10 flex items-center justify-center text-sky-300">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" /></svg>
+              <div className="flex h-12 w-12 items-center justify-center rounded-[16px] bg-[var(--bp-text)] p-2 shadow-sm">
+                <Image src="/logo/terminallogo.png" alt="BetterPrompt Logo" width={28} height={28} className="invert brightness-0" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold tracking-tight">PromptingGuide.ai Concepts</h2>
-                <p className="text-sm text-slate-300">Curated cross-model ideas for stronger prompt design and safer workflows.</p>
+                <h2 className="text-2xl font-semibold text-[var(--bp-text)]">Universal Guidelines</h2>
+                <p className="mt-1 text-sm text-[var(--bp-text-muted)]">BetterPrompt&apos;s merged cross-model playbook for writing stronger prompts.</p>
               </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {rules.promptingGuide.map((rule, idx) => {
-                const [title, ...rest] = rule.split(': ');
-                const description = rest.join(': ');
 
-                return (
-                  <div key={idx} className="rounded-xl border border-white/10 bg-white/5 p-5">
-                    <h3 className="text-base font-semibold text-white">{title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-300">{description}</p>
+            <div className="grid gap-4 md:grid-cols-2">
+              {rules.universal.map((rule, idx) => (
+                <div key={idx} className="bp-panel-muted rounded-2xl p-5">
+                  <div className="flex gap-3">
+                    <span className="mt-0.5 text-[var(--bp-accent)]">
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </span>
+                    <span className="leading-relaxed text-[var(--bp-text)]">{rule}</span>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
-            <div className="mt-6 rounded-xl border border-sky-400/20 bg-sky-400/10 px-4 py-3 text-sm text-sky-100">
-              Source inspiration: PromptingGuide.ai, curated into BetterPrompt-friendly rules.
+
+            <div className="mt-8">
+              <BetterPromptTemplateCard templateLines={rules.betterPromptTemplate} title="BetterPrompt Template" />
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-[var(--bp-stroke)] bg-[var(--bp-surface)] p-6">
+              <h3 className="text-lg font-semibold text-[var(--bp-text)]">Prompt safety reminders</h3>
+              <ul className="mt-4 space-y-3">
+                {rules.promptSafety.map((rule, idx) => (
+                  <li key={idx} className="flex gap-3 text-sm text-[var(--bp-text)]">
+                    <span className="mt-1 text-[var(--bp-accent)]">
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z" /></svg>
+                    </span>
+                    <span>{rule}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
 
@@ -147,6 +146,8 @@ export default function LearnPage() {
               </a>
             </div>
           </section>
+
+          <LearningCopilot page="hub" title="BetterPrompt Tutor" />
         </div>
       </div>
     </main>

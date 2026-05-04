@@ -1,6 +1,8 @@
 import Link from "next/link";
 import rules from "@/data/rules.json";
 import { Outfit } from "next/font/google";
+import BetterPromptTemplateCard from "@/components/learn/better-prompt-template-card";
+import LearningCopilot from "@/components/learn/learning-copilot";
 
 const outfit = Outfit({ subsets: ["latin"] });
 
@@ -50,27 +52,35 @@ export default function GoogleLearnPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-medium text-[#202124]">2. Strict Constraints ("Only Use Provided Data")</h3>
+                <h3 className="text-lg font-medium text-[#202124]">2. Strict Constraints (&quot;Only Use Provided Data&quot;)</h3>
                 <p className="text-[#3C4043] mt-2">
-                  When working with documents in Google Workspace, set strict boundaries. Use phrases like <em>"Using ONLY the information provided in the text above..."</em> or <em>"If the answer is not contained within the provided context, reply with 'I don't know'."</em> to prevent hallucinations.
+                  When working with documents in Google Workspace, set strict boundaries. Use phrases like <em>&quot;Using ONLY the information provided in the text above...&quot;</em> or <em>&quot;If the answer is not contained within the provided context, reply with &apos;I don&apos;t know&apos;.&quot;</em> to prevent hallucinations.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-medium text-[#202124]">3. Iterative Refinement & Chained Prompting</h3>
                 <p className="text-[#3C4043] mt-2">
-                  Instead of asking for a massive output in a single mega-prompt, break the interaction down. Start with a broad outline, review it, and then prompt for specific expansions (e.g., <em>"Great. Now expand section 2 into a detailed email draft."</em>).
+                  Instead of asking for a massive output in a single mega-prompt, break the interaction down. Start with a broad outline, review it, and then prompt for specific expansions (e.g., <em>&quot;Great. Now expand section 2 into a detailed email draft.&quot;</em>).
                 </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-medium text-[#202124]">4. Chain-of-Thought (CoT)</h3>
                 <p className="text-[#3C4043] mt-2">
-                  When asking Gemini to perform complex logic, math, or multi-layered analysis, force it to explicitly lay out its reasoning process first. Append the phrase <em>"Think through this step-by-step"</em> or <em>"Explain your reasoning before providing the final answer."</em>
+                  When asking Gemini to perform complex logic, math, or multi-layered analysis, force it to explicitly lay out its reasoning process first. Append the phrase <em>&quot;Think through this step-by-step&quot;</em> or <em>&quot;Explain your reasoning before providing the final answer.&quot;</em>
                 </p>
               </div>
             </div>
           </section>
+
+          <BetterPromptTemplateCard
+            templateLines={rules.googleTemplate}
+            title="Google BetterPrompt Template"
+            description="Designed for Gemini-style prompting using Persona, Task, Context, Format, and strong boundary-setting."
+            buttonClassName="bg-[#1A73E8] hover:bg-[#174EA6] text-white"
+            messageClassName="text-[#8ab4f8]"
+          />
 
           <section className="rounded-2xl bg-white p-6 border border-[#E8EAED]">
             <h3 className="text-sm font-medium text-[#5F6368] uppercase tracking-wider mb-3">References & Sources</h3>
@@ -82,6 +92,13 @@ export default function GoogleLearnPage() {
               </li>
             </ul>
           </section>
+
+          <LearningCopilot
+            page="google"
+            title="Gemini BetterPrompt Tutor"
+            accentClassName="bg-[#1A73E8] text-white hover:bg-[#174EA6]"
+            panelClassName="border-[#D2E3FC] bg-white"
+          />
         </div>
       </div>
     </main>

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import rules from "@/data/rules.json";
 import { Fraunces, Inter } from "next/font/google";
+import BetterPromptTemplateCard from "@/components/learn/better-prompt-template-card";
+import LearningCopilot from "@/components/learn/learning-copilot";
 
 const fraunces = Fraunces({ subsets: ["latin"] });
 const inter = Inter({ subsets: ["latin"] });
@@ -46,18 +48,26 @@ export default function AnthropicLearnPage() {
               <div>
                 <h3 className={`text-lg text-[#1A1A1A] ${fraunces.className}`}>1. Literal Instruction Following</h3>
                 <p className="text-[#333333] mt-2 font-light">
-                  Claude now interprets prompts much more literally. State the scope explicitly (e.g., "Apply this formatting to every section, not just the first one").
+                  Claude now interprets prompts much more literally. State the scope explicitly (e.g., &quot;Apply this formatting to every section, not just the first one&quot;).
                 </p>
               </div>
 
               <div>
-                <h3 className={`text-lg text-[#1A1A1A] ${fraunces.className}`}>2. Eliminating "AI Slop"</h3>
+                <h3 className={`text-lg text-[#1A1A1A] ${fraunces.className}`}>2. Eliminating &quot;AI Slop&quot;</h3>
                 <p className="text-[#333333] mt-2 font-light">
-                  Tell Claude what *to do* instead of what *not* to do. Wrap instructions in an <code>&lt;avoid_excessive_markdown&gt;</code> tag and explicitly ask for "clear, smoothly flowing prose paragraphs".
+                  Tell Claude what *to do* instead of what *not* to do. Wrap instructions in an <code>&lt;avoid_excessive_markdown&gt;</code> tag and explicitly ask for &quot;clear, smoothly flowing prose paragraphs&quot;.
                 </p>
               </div>
             </div>
           </section>
+
+          <BetterPromptTemplateCard
+            templateLines={rules.anthropicTemplate}
+            title="Anthropic BetterPrompt Template"
+            description="Designed for Claude-style prompting with XML structure, explicit context separation, and careful instruction scoping."
+            buttonClassName="bg-[#D0B7A1] hover:bg-[#b89b82] text-white"
+            messageClassName="text-[#8f6e4f]"
+          />
 
           <section className="rounded-xl bg-[#F4F1EA] p-6 border border-[#EBE5DA]">
             <h3 className="text-xs font-semibold text-[#888888] uppercase tracking-widest mb-3">References & Sources</h3>
@@ -69,6 +79,13 @@ export default function AnthropicLearnPage() {
               </li>
             </ul>
           </section>
+
+          <LearningCopilot
+            page="anthropic"
+            title="Claude BetterPrompt Tutor"
+            accentClassName="bg-[#D0B7A1] text-white hover:bg-[#b89b82]"
+            panelClassName="border-[#EBE5DA] bg-[#F9F7F4]"
+          />
         </div>
       </div>
     </main>

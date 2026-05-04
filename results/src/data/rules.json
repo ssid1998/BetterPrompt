@@ -1,12 +1,22 @@
 {
   "universal": [
-    "Clarity and Directness: Be as clear and direct as possible. Avoid vague language. Write as if you are giving instructions to a literal-minded intern.",
-    "Role Prompting: Assign a specific role or persona to the AI (e.g., 'Act as a senior copywriter').",
-    "Avoid Negative Constraints: Tell the AI what *to* do instead of what *not* to do (e.g., 'Keep it concise' instead of 'Don't write a lot').",
-    "Formatting Output: Explicitly specify the desired output format (e.g., list, table, JSON, essay).",
-    "Relevant Context: Include the background information, source material, constraints, and audience details that materially affect the answer.",
-    "Examples When Needed: If the task is nuanced or format-sensitive, provide a few strong examples of the kind of output you want.",
-    "Verification Mindset: Ask the model to check its work, flag uncertainty, and separate supported facts from assumptions when accuracy matters."
+    "Be Specific: Use direct verbs and clear success criteria so the model knows exactly what a good answer looks like.",
+    "Act as a Role: Start with a role when expertise or tone matters, such as 'Act as a product manager', 'Act as a tutor', or 'Act as a senior copywriter'.",
+    "Give Relevant Context: Include the background, audience, constraints, and source material that materially change the answer.",
+    "Ask for the Right Format: Explicitly request the output shape you want, such as bullets, table, JSON, email, summary, or step-by-step plan.",
+    "Show Examples for Tricky Tasks: If tone, structure, or labeling matters, include one or two strong examples.",
+    "Say What To Do: Positive instructions are usually clearer than long lists of what to avoid.",
+    "Break Big Work Into Steps: Use prompt chaining or staged prompting when one giant request becomes messy or unreliable.",
+    "Ask for Verification: For important work, tell the model to flag uncertainty, separate facts from assumptions, and check for missing requirements."
+  ],
+  "betterPromptTemplate": [
+    "Act as <role which you want AI to play>.",
+    "My goal is: <what I want to achieve>.",
+    "Use this context: <key background, audience, and source material>.",
+    "Follow these constraints: <tone, length, rules, and must-include points>.",
+    "Return the answer as: <specific output format>.",
+    "Success looks like: <how I will judge the answer>.",
+    "If anything important is unclear, ask clarifying questions before answering."
   ],
   "openai": [
     "Outcome-First Prompting: Define the goal, success criteria, constraints, and evidence, then let the model choose the most efficient path.",
@@ -19,6 +29,16 @@
     "Output Contracts: Clearly specify the required sections, order, format, and length limits.",
     "Retrieval Budgets: Use the minimum evidence needed to answer correctly, then stop instead of searching endlessly for polish.",
     "Validation Before Finalizing: Ask the model to verify correctness, grounding, formatting, and missing requirements before returning the answer."
+  ],
+  "openaiTemplate": [
+    "You are <role>.",
+    "My goal is: <desired outcome>.",
+    "Context: <relevant background, data, or source material>.",
+    "Constraints: <tone, length, must-have points, and boundaries>.",
+    "Return the answer in this format:\n### Summary\n### Recommendations\n### Final Output",
+    "Success criteria: <what a strong answer must include>.",
+    "If key information is missing, ask clarifying questions before answering.",
+    "Before finishing, verify the answer is grounded, complete, and follows the requested format."
   ],
   "anthropic": [
     "Basic Structure: Use a clear structure. Context first, instructions last.",
@@ -33,6 +53,14 @@
     "Formatting Control: If you want prose instead of bullet-heavy output, say so directly and match your prompt style to the desired response style.",
     "Complex Prompts: Combine all of the above: Define a Role, Provide Context inside XML, Add Examples, Give clear Instructions, ask for <thinking>, and specify the Output Format."
   ],
+  "anthropicTemplate": [
+    "<role>You are <role>.</role>",
+    "<context>\n<background>Relevant project or document context</background>\n<audience>Who this is for</audience>\n<constraints>Tone, length, and boundaries</constraints>\n</context>",
+    "<instructions>\nComplete this task: <specific task>.\nUse the context above.\nIf the answer is not supported by the context, say you do not know.\n</instructions>",
+    "<examples>\n<example>Optional example of the desired output style</example>\n</examples>",
+    "<output_format>Return the answer as <format>.</output_format>",
+    "<thinking>Think carefully through the task before giving the final answer.</thinking>"
+  ],
   "google": [
     "PTCF Structure: Define Persona, Task, Context, and Format explicitly to guide Gemini clearly.",
     "High Specificity: Be highly specific and granular with constraints.",
@@ -45,16 +73,18 @@
     "Fact vs Assumption Separation: Ask Gemini to separate source-backed facts, assumptions, and gaps when accuracy is important.",
     "Verification Cues: Require uncertainty flags, source-grounded claims, or suggested double-checks for high-stakes outputs."
   ],
-  "promptingGuide": [
-    "Start Simple and Iterate: Begin with a straightforward prompt, test it, and layer in extra detail only when it improves results.",
-    "Specific Commands Work Better: Use direct verbs like write, classify, summarize, translate, or extract so the task is unmistakable.",
-    "Prompt Chaining: Break complex workflows into smaller prompt steps when one giant prompt becomes brittle or hard to debug.",
-    "Few-Shot Prompting: Provide a few representative examples when format, tone, or labeling consistency matters.",
-    "Examples Need Strong Format: The quality and structure of examples often matter as much as the exact labels inside them.",
-    "Say What To Do: Positive instructions usually outperform prompts that mostly describe forbidden behavior.",
-    "Use Separators Deliberately: Headings, XML tags, quotes, and delimiters help distinguish instructions from data.",
-    "Prompt Injection Awareness: Treat user-provided text as untrusted input and format it carefully so it cannot easily override your instructions.",
-    "Parameterize Untrusted Inputs: Keep system instructions and user content conceptually separated, similar to safe query design.",
-    "Adversarial Detection: For sensitive workflows, consider adding a separate review step that flags suspicious or manipulative prompts before execution."
+  "googleTemplate": [
+    "Persona: Act as <role>.",
+    "Task: Help me <specific task or deliverable>.",
+    "Context: Use this background, audience, and source material: <context>.",
+    "Format: Return the answer as <table, bullets, email, summary, JSON, etc.>.",
+    "Constraints: <tone, length, required sections, and what to avoid>.",
+    "Only use the information provided when accuracy matters. If something is missing, say so clearly.",
+    "If this task is large, start with a short outline before expanding the final answer."
+  ],
+  "promptSafety": [
+    "Treat untrusted input carefully: Use clear separators between your instructions and any user-provided content.",
+    "Keep instructions and source material distinct: This makes prompts easier to debug and harder to derail.",
+    "For sensitive workflows, add a review step: Ask the model to flag suspicious, manipulative, or missing information before finalizing."
   ]
 }
